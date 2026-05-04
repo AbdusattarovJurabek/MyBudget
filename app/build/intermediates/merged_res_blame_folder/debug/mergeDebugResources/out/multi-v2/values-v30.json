@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "uz.mybudget.app-mergeDebugResources-62:/values-v30/values-v30.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Jurabek\\.gradle\\caches\\9.0.0\\transforms\\7a91ce1b98cc8b0d7cd2d0c73d5d132f\\transformed\\material3-release\\res\\values-v30\\values-v30.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "72",
+                        "endOffsets": "123"
+                    }
+                }
+            ]
+        }
+    ]
+}
