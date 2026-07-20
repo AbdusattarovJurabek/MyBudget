@@ -40,6 +40,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -78,8 +79,9 @@ private val categoryIconMap: Map<String, ImageVector> = mapOf(
 )
 
 @Composable
-fun DashboardScreen(onLogout: () -> Unit) {
-    val repo = remember { TransactionRepository() }
+fun DashboardScreen(onLock: () -> Unit) {
+    val context = LocalContext.current
+    val repo = remember(context) { TransactionRepository(context) }
     val scope = rememberCoroutineScope()
     var list by remember { mutableStateOf<List<Transaction>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
@@ -188,10 +190,10 @@ fun DashboardScreen(onLogout: () -> Unit) {
                         Spacer(modifier = Modifier.width(48.dp))
                     },
                     actions = {
-                        IconButton(onClick = onLogout) {
+                        IconButton(onClick = onLock) {
                             Icon(
-                                Icons.AutoMirrored.Filled.Logout,
-                                contentDescription = "Chiqish",
+                                Icons.Default.Lock,
+                                contentDescription = "Ilovani qulflash",
                                 tint = MaterialTheme.colorScheme.onSecondary,
                                 modifier = Modifier.size(24.dp)
                             )

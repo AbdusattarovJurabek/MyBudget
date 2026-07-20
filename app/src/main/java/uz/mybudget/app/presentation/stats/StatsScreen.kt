@@ -27,6 +27,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -44,7 +45,8 @@ import java.util.Calendar
 
 @Composable
 fun StatsScreen() {
-    val repo = remember { TransactionRepository() }
+    val context = LocalContext.current
+    val repo = remember(context) { TransactionRepository(context) }
     val scope = rememberCoroutineScope()
     var list by remember { mutableStateOf<List<Transaction>>(emptyList()) }
     var loading by remember { mutableStateOf(true) }
