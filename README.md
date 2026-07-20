@@ -1,65 +1,29 @@
 # My Budget Android App
 
-Kotlin + Jetpack Compose + Firebase Auth + Cloud Firestore asosidagi kirim/chiqim ilova skeleti.
+Kotlin va Jetpack Compose asosidagi lokal kirim-chiqim ilovasi.
 
-## Firebase sozlash
+## Asosiy imkoniyatlar
 
-1. Firebase Console oching.
-2. New project yarating: `My Budget`.
-3. Android app qo‘shing:
-   - Package name: `uz.mybudget.app`
-4. `google-services.json` faylini yuklab oling.
-5. Faylni quyidagi joyga qo‘ying:
+- Email va parolsiz, 4–6 raqamli PIN bilan kirish.
+- PIN ochiq holda saqlanmaydi; PBKDF2 xeshi va tasodifiy salt ishlatiladi.
+- Operatsiyalar telefonning lokal SQLite bazasida saqlanadi.
+- Barcha ma’lumotlarni haqiqiy `.xlsx` Excel fayliga eksport qilish.
+- `.xlsx` yoki `.csv` fayldan eski ma’lumotlarni qayta import qilish.
+- Android fayl tanlagichi orqali eksport papkasi va import faylini erkin tanlash.
 
-```text
-MyBudgetApp/app/google-services.json
-```
+## Excel ustunlari
 
-6. Firebase Authentication → Sign-in method → Email/Password → Enable.
-7. Firestore Database → Create database → Production mode.
-8. Firestore Rules quyidagicha bo‘lsin:
+`ID`, `Turi`, `Summa`, `Kategoriya`, `Izoh`, `Sana`, `Yaratilgan vaqt`, `Yangilangan vaqt`.
 
-```js
-rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /users/{userId}/{document=**} {
-      allow read, write: if request.auth != null && request.auth.uid == userId;
-    }
-  }
-}
-```
-
-## Firestore structure
-
-```text
-users/{userId}/transactions/{transactionId}
-```
-
-## Transaction model
-
-- id
-- type: income/expense
-- amount
-- category
-- note
-- date
-- createdAt
-- updatedAt
+`Turi` ustunida `income` yoki `expense` ishlatiladi. Import paytida `kirim`, `daromad` va `income` qiymatlari kirim sifatida qabul qilinadi.
 
 ## Ishga tushirish
 
-1. Android Studio’da `MyBudgetApp` papkasini oching.
-2. Gradle Sync qiling.
-3. `google-services.json` qo‘ying.
-4. Emulator yoki telefonda Run qiling.
+1. Loyihani Android Studio’da oching.
+2. Gradle Sync bajaring.
+3. Emulator yoki Android telefonda Run bosing.
+4. Birinchi ishga tushishda PIN kod yarating.
 
-## Eslatma
+## Ma’lumotlar ko‘chishi
 
-Bu loyiha boshlang‘ich professional skelet. Keyingi bosqichda quyidagilar qo‘shiladi:
-- Bottom Navigation
-- DatePicker
-- Statistik grafiklar
-- Tahrirlash/o‘chirish oynasi
-- Room Database bilan lokal cache
-- Hilt dependency injection
+Oldingi ma’lumotlarni ilovadagi **Sozlamalar → Fayldan tiklash** orqali import qiling. Bir xil ID bilan qayta import qilingan qator yangilanadi, yangi ID esa yangi operatsiya sifatida qo‘shiladi.

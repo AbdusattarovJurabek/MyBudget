@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.AnnotatedString
@@ -33,7 +34,8 @@ import uz.mybudget.app.data.repository.TransactionRepository
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
 fun AddTransactionScreen(type: String, onSaved: () -> Unit, onBack: () -> Unit) {
-    val repo = remember { TransactionRepository() }
+    val context = LocalContext.current
+    val repo = remember(context) { TransactionRepository(context) }
     val scope = rememberCoroutineScope()
     var amount by remember { mutableStateOf("") }
     
